@@ -15,11 +15,6 @@ function toggleVideoStatus() {
 
 //Update Play icon
 function updatePlayIcon() {
-  return true;
-}
-
-//Updates progress
-function updateProgress() {
   if (video.paused) {
     play.innerHTML = '<i class="fa fa-play fa-2x"></i>';
   } else {
@@ -27,9 +22,27 @@ function updateProgress() {
   }
 }
 
+//Updates progress & timestamp
+function updateProgress() {
+  progress.value = (video.currentTime / video.duration) * 100;
+
+  //get minutes
+  let mins = Math.floor(video.currentTime / 60);
+  if (mins < 10) {
+    mins = "0" + String(mins);
+  }
+  //Get seconds
+  let secs = Math.floor(video.currentTime % 60);
+  if (secs < 10) {
+    secs = "0" + String(secs);
+  }
+
+  timeStamp.innerHTML = `${mins}:${secs}`;
+}
+
 //Set video time = progress
 function setVideoProgress() {
-  return true;
+  video.currentTime = (+progress.value * video.duration) / 100;
 }
 
 //Stop video
